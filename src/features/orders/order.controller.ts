@@ -1,4 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Get,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateOrderReqBody } from './dtos/create-order.dto';
 import { OrderService } from './order.service';
 
@@ -9,5 +17,16 @@ export class OrderController {
   @Post()
   async createOrder(@Body() order: CreateOrderReqBody) {
     return this.orderService.createOrder(order);
+  }
+
+  @Get()
+  async getAllOrders(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+  ) {
+    return this.orderService.getAllOrders({
+      page,
+      limit,
+    });
   }
 }

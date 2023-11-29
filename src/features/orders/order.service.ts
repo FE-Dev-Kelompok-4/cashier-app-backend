@@ -3,6 +3,7 @@ import { CreateMenuDTO, CreateOrderReqBody } from './dtos/create-order.dto';
 import { MenuOrder } from 'src/datasources/entities/menu-order.entity';
 import { OrderRepository } from 'src/datasources/repositories/order.repository';
 import { Order } from 'src/datasources/entities/order.entity';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class OrderService {
@@ -14,8 +15,13 @@ export class OrderService {
     const newOrder = new Order();
     newOrder.menus = menuOrders;
     newOrder.recipientName = payload.recipientName;
+    newOrder.totalPrice = payload.totalPrice;
 
     return this.orderRepository.createOrder(newOrder);
+  }
+
+  async getAllOrders(options: IPaginationOptions) {
+    return this.orderRepository.getAllOrders(options);
   }
 
   private mapDtoToMenuOrder(menuOrder: CreateMenuDTO) {

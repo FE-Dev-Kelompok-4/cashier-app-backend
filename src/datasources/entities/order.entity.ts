@@ -17,6 +17,9 @@ export class Order {
   @Column({ name: 'recipient_name', type: 'varchar', length: 50 })
   recipientName: string;
 
+  @Column({ name: 'total_price', type: 'integer' })
+  totalPrice: number;
+
   @OneToMany(() => MenuOrder, (m) => m.order, { cascade: true })
   menus: MenuOrder[];
 
