@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsOptional } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { MenuCategory } from 'src/datasources/entities/menu.entity';
 
 export class GetAllMenuQueryDTO {
@@ -6,11 +6,7 @@ export class GetAllMenuQueryDTO {
   @IsOptional()
   category: MenuCategory;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  page: number;
-
-  @IsNumber()
-  @IsOptional()
-  limit: number;
+  search: string;
 }

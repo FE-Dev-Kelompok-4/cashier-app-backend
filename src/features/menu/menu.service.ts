@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Menu, MenuCategory } from 'src/datasources/entities/menu.entity';
+import { Menu } from 'src/datasources/entities/menu.entity';
 import { MenuRepository } from 'src/datasources/repositories/menu.repository';
 import { CreateMenuBodyDTO } from './dtos/create-menu.dto';
+import { GetAllMenuQueryDTO } from './dtos/get-all-menu.dto';
 
 @Injectable()
 export class MenuService {
@@ -25,8 +26,8 @@ export class MenuService {
     return ids;
   }
 
-  async getMenuByCategory(category: MenuCategory): Promise<Menu[]> {
-    return this.menuRepository.getAllMenu(category);
+  async getMenuByCategory(category: GetAllMenuQueryDTO): Promise<Menu[]> {
+    return this.menuRepository.getAllMenu(category.category, category.search);
   }
 
   async getMenuById(id: string): Promise<Menu> {

@@ -17,14 +17,19 @@ export class MenuRepository {
     return addedMenu.id;
   }
 
-  async getAllMenu(where: MenuCategory): Promise<Menu[]> {
-    const result = await this.menuDatasource
+  async getAllMenu(where: MenuCategory, search?: string): Promise<Menu[]> {
+    const queryBuilder = this.menuDatasource
       .createQueryBuilder('m')
       .select(['m.id', 'm.name', 'm.price', 'm.stock', 'm.image'])
-      .where('m.category = :where', { where })
-      .getMany();
+      .where('m.category = :where', { where });
 
-    return result;
+    if (search) {
+      queryBuilder.andWhere('m.name LIKE :search', {
+        search: '%' + search + '%',
+      });
+    }
+
+    return queryBuilder.getMany();
   }
 
   async getMenuById(id: string): Promise<Menu> {

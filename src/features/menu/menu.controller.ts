@@ -15,7 +15,7 @@ export class MenuController {
 
   @Get()
   async getAllMenu(@Query() query: GetAllMenuQueryDTO) {
-    const result = await this.menuService.getMenuByCategory(query.category);
+    const result = await this.menuService.getMenuByCategory(query);
 
     return result;
   }
