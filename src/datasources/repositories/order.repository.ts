@@ -33,4 +33,22 @@ export class OrderRepository {
 
     return paginate<Order>(queryBuilder, options);
   }
+
+  async getOrderById(id: string): Promise<Order> {
+    return this.orderDatasource
+      .createQueryBuilder('o')
+      .leftJoin('o.menus', 'om')
+      .leftJoin('om.menu', 'm')
+      .select([
+        'o.id',
+        'o.recipientName',
+        'o.totalPrice',
+        'o.orderAt',
+        'om.quantity',
+        'm.name',
+        'm.price',
+      ])
+      .where('o.id = :id', { id })
+      .getOne();
+  }
 }

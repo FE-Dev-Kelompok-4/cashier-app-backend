@@ -3,6 +3,7 @@ import {
   Controller,
   DefaultValuePipe,
   Get,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -28,5 +29,10 @@ export class OrderController {
       page,
       limit,
     });
+  }
+
+  @Get(':id')
+  async getOrderById(@Param('id') id: string) {
+    return this.orderService.getOrderById(id);
   }
 }

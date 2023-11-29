@@ -24,6 +24,10 @@ export class OrderService {
     return this.orderRepository.getAllOrders(options);
   }
 
+  async getOrderById(id: string) {
+    return this.orderRepository.getOrderById(id);
+  }
+
   private mapDtoToMenuOrder(menuOrder: CreateMenuDTO) {
     const newMenuOrder = new MenuOrder();
     newMenuOrder.quantity = menuOrder.quantity;
