@@ -25,10 +25,12 @@ export class OrderController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ) {
-    return this.orderService.getAllOrders({
+    const result = await this.orderService.getAllOrders({
       page,
       limit,
     });
+
+    return result;
   }
 
   @Get(':id')
