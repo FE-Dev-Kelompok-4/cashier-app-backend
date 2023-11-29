@@ -2,8 +2,15 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthenticationsRepository } from './repositories/auth.repository';
 import { UsersRepository } from './repositories/users.repository';
+import { MenuRepository } from './repositories/menu.repository';
+import { OrderRepository } from './repositories/order.repository';
 
-const repositories = [UsersRepository, AuthenticationsRepository];
+const repositories = [
+  UsersRepository,
+  AuthenticationsRepository,
+  MenuRepository,
+  OrderRepository,
+];
 
 @Module({
   imports: [
