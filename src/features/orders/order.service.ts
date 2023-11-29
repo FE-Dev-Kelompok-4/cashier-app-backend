@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMenuDTO, CreateOrderReqBody } from './dtos/create-order.dto';
+import {
+  CreateOrderMenuDTO,
+  CreateOrderReqBody,
+} from './dtos/create-order.dto';
 import { MenuOrder } from 'src/datasources/entities/menu-order.entity';
 import { OrderRepository } from 'src/datasources/repositories/order.repository';
 import { Order } from 'src/datasources/entities/order.entity';
@@ -28,10 +31,10 @@ export class OrderService {
     return this.orderRepository.getOrderById(id);
   }
 
-  private mapDtoToMenuOrder(menuOrder: CreateMenuDTO) {
+  private mapDtoToMenuOrder(menuOrder: CreateOrderMenuDTO) {
     const newMenuOrder = new MenuOrder();
     newMenuOrder.quantity = menuOrder.quantity;
-    newMenuOrder.menuId = menuOrder.menuId;
+    newMenuOrder.menuId = menuOrder.menu.id;
 
     return newMenuOrder;
   }

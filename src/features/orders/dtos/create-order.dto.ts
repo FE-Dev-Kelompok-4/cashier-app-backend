@@ -3,18 +3,23 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMenuDTO {
   @IsString()
-  menuId: string;
+  id: string;
+}
 
+export class CreateOrderMenuDTO {
   @IsNumber()
   quantity: number;
+
+  @Type(() => CreateMenuDTO)
+  menu: CreateMenuDTO;
 }
 
 export class CreateOrderReqBody {
   @IsString()
   recipientName: string;
 
-  @Type(() => CreateMenuDTO)
-  menus: CreateMenuDTO[];
+  @Type(() => CreateOrderMenuDTO)
+  menus: CreateOrderMenuDTO[];
 
   @IsNumber()
   totalPrice: number;
