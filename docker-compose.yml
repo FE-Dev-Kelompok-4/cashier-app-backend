@@ -9,4 +9,17 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db_cashier
+  prod:
+    container_name: "cashier-service-prod"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    ports:
+      - '6969:3000'
+    dns:
+      - 8.8.8.8
+    env_file:
+      - ./.env
+    network_mode: host
 
